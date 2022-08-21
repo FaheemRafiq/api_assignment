@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Api Assignment</title>
+</head>
+
+<body>
+    <!-- HTMl -->
+
+     <button id="check">Check All</button>
+     <button id="uncheck">UnCheck All</button>
+     <ul>
+
+     </ul>
+    <!-- JavaScript -->
+    <script>
+        var check = document.querySelector('#check');
+        var uncheck = document.querySelector('#uncheck');
+        window.addEventListener('load', () => {
+            fetch('https://jsonplaceholder.typicode.com/todos')
+                .then(response => response.json())
+                .then(resp => {
+                    // Get Unordered List 
+                    var ul = document.querySelector('ul');
+                    resp.forEach(x => {
+                        if (x.completed == true)
+                                    ul.innerHTML += `<li><input type="checkbox" checked>${x.title} </li>`;
+                        ul.innerHTML += `<li><input type="checkbox">${x.title} </li>`;    
+                    }
+                )
+            })
+                .catch(err => console.error(err));
+
+
+        })
+
+        // Check All Boxes 
+        check.addEventListener('click' , ()=>{
+            var input = document.querySelectorAll('[type="checkbox"]');
+           input.forEach(x => {
+              x.checked = true;
+           });
+        })
+
+        // unCheck All Boxes 
+        uncheck.addEventListener('click' , ()=>{
+            var input = document.querySelectorAll('[type="checkbox"]');
+           input.forEach(x => {
+              x.checked = false;
+           });
+        })
+    </script>
+</body>
+
+</html>
